@@ -27,10 +27,15 @@ public class StrategyA implements PlayerStrategy {
     public boolean shouldDrawCard(Card topPileCard, Card.Suit changedSuit) {
         for (int cardIndex = 0; cardIndex < playerCards.size(); cardIndex++) {
             if (playerCards.get(cardIndex).equals(topPileCard)) {
-                return true;
+                return false;
             }
         }
-        return false;
+        for (int cardIndex = 0; cardIndex <playerCards.size(); cardIndex++) {
+            if (playerCards.get(cardIndex).getRank().equals(Card.Rank.EIGHT)) {
+                return false; // because you would put down your crazy eight and change suit
+            }
+        }
+        return true;
     }
 
     @Override

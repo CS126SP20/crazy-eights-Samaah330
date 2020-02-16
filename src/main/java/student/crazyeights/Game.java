@@ -28,7 +28,7 @@ public class Game {
     boolean isNewGame = true;
     boolean isTournamentOver = false;
 
-    ArrayList<Card> cardDeck = new ArrayList<>();
+    List<Card> cardDeck = Card.getDeck();
     int cardDeckPosition = 0;
 
 
