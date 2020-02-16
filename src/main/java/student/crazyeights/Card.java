@@ -36,7 +36,6 @@ public class Card {
 
     private static final int FACE_CARD_VALUE = 10;
     private static final int EIGHT_CARD_VALUE = 50;
-
     private static final int DECK_SIZE = Suit.values().length * Rank.values().length;
 
     private Suit suit;
