@@ -1,17 +1,26 @@
 package student.crazyeights;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class StrategyA implements PlayerStrategy {
-    PlayerTurn player = new PlayerTurn();
+    ArrayList<Card> playerCards = new ArrayList<Card>();
+
     @Override
     public void init(int playerId, List<Integer> opponentIds) {
-        player.playerId = playerId;
+        System.out.println("You are player " + playerId +
+                " and you are playing against player " + opponentIds.get(0) +
+                " , " + opponentIds.get(1) + " ,and " + opponentIds.get(2));
     }
 
     @Override
     public void receiveInitialCards(List<Card> cards) {
-
+        playerCards.add(cards.get(0));
+        playerCards.add(cards.get(1));
+        playerCards.add(cards.get(2));
+        playerCards.add(cards.get(3));
+        playerCards.add(cards.get(4));
     }
 
     @Override

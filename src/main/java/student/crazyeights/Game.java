@@ -2,6 +2,7 @@ package student.crazyeights;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Game {
@@ -11,19 +12,31 @@ public class Game {
         PlayerStrategy playerTwo = new StrategyA();
         PlayerStrategy playerThree = new StrategyB();
         PlayerStrategy playerFour = new StrategyB();
+
         int playerOneID = 1;
         int playerTwoID = 2;
         int playerThreeID = 3;
         int playerFourID = 4;
 
-        ArrayList<Integer> opponentID = new ArrayList<Integer>();
+        boolean isNewGame = true;
+
+        ArrayList<Card> cardDeck = new ArrayList<>();
+
+        ArrayList<Integer> opponentID = new ArrayList<>();
         opponentID.add(playerTwoID);
         opponentID.add(playerThreeID);
         opponentID.add(playerFourID);
 
+
         playerOne.init(playerOneID, opponentID);
 
-
+        if (isNewGame) {
+            Collections.shuffle(cardDeck);
+            playerOne.receiveInitialCards(cardDeck);
+            playerTwo.receiveInitialCards(cardDeck);
+            playerThree.receiveInitialCards(cardDeck);
+            playerFour.receiveInitialCards(cardDeck);
+        }
     }
 
 
