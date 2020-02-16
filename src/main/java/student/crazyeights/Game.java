@@ -5,38 +5,88 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Main game engine
+ */
 public class Game {
 
+    PlayerStrategy playerOne = new StrategyA();
+    PlayerStrategy playerTwo = new StrategyA();
+    PlayerStrategy playerThree = new StrategyB();
+    PlayerStrategy playerFour = new StrategyB();
+
+    int playerOneID = 1;
+    int playerTwoID = 2;
+    int playerThreeID = 3;
+    int playerFourID = 4;
+
+    int playerOnePoints = 0;
+    int playerTwoPoints = 0;
+    int playerThreePoints = 0;
+    int playerFourPoints = 0;
+
+    boolean isNewGame = true;
+    boolean isTournamentOver = false;
+
+    ArrayList<Card> cardDeck = new ArrayList<>();
+    int cardDeckPosition = 0;
+
+
+
     public void runGame() {
-        PlayerStrategy playerOne = new StrategyA();
-        PlayerStrategy playerTwo = new StrategyA();
-        PlayerStrategy playerThree = new StrategyB();
-        PlayerStrategy playerFour = new StrategyB();
 
-        int playerOneID = 1;
-        int playerTwoID = 2;
-        int playerThreeID = 3;
-        int playerFourID = 4;
+        initializeTournament();
 
-        boolean isNewGame = true;
+        if (isNewGame) {
+            initializeGame();
+        }
 
-        ArrayList<Card> cardDeck = new ArrayList<>();
+        Card topCard = cardDeck.get(cardDeckPosition);
+        cardDeckPosition++;
+        Card.Suit changedSuit = null;
 
+        while(!isTournamentOver) {
+            // call reset after every turn and in reset check to see if the game is actually over
+            // one player turn
+            if (playerOne.shouldDrawCard(topCard,changedSuit)) {
+                playerOne.receiveCard(cardDeck.get(cardDeckPosition));
+                cardDeckPosition++;
+            } else {
+                playerOne.playCard();
+                // change top card to the card that the player just put down
+            }
+            playerOne.reset();
+
+            if (playerTwo.shouldDrawCard(topCard,changedSuit)) {
+                playerTwo.receiveCard(cardDeck.get(cardDeckPosition));
+            } else {
+                playerTwo.playCard();
+                // change top card
+            }
+            playerTwo.reset();
+
+            // do this same thing for player three and player four
+
+
+
+    }
+
+
+    }
+    public void initializeTournament() {
         ArrayList<Integer> opponentID = new ArrayList<>();
         opponentID.add(playerTwoID);
         opponentID.add(playerThreeID);
         opponentID.add(playerFourID);
 
-
         playerOne.init(playerOneID, opponentID);
-
-        if (isNewGame) {
-            Collections.shuffle(cardDeck);
-            playerOne.receiveInitialCards(cardDeck);
-            playerTwo.receiveInitialCards(cardDeck);
-            playerThree.receiveInitialCards(cardDeck);
-            playerFour.receiveInitialCards(cardDeck);
-        }
+    }
+    public void initializeGame() {
+        Collections.shuffle(cardDeck);
+        playerOne.receiveInitialCards(cardDeck);
+        playerTwo.receiveInitialCards(cardDeck);
+        playerThree.receiveInitialCards(cardDeck);
+        playerFour.receiveInitialCards(cardDeck);
     }
 
 

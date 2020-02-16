@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class StrategyA implements PlayerStrategy {
-    ArrayList<Card> playerCards = new ArrayList<Card>();
+    ArrayList<Card> playerCards = new ArrayList<>();
 
     @Override
     public void init(int playerId, List<Integer> opponentIds) {
@@ -25,6 +25,11 @@ public class StrategyA implements PlayerStrategy {
 
     @Override
     public boolean shouldDrawCard(Card topPileCard, Card.Suit changedSuit) {
+        for (int cardIndex = 0; cardIndex < playerCards.size(); cardIndex++) {
+            if (playerCards.get(cardIndex).equals(topPileCard)) {
+                return true;
+            }
+        }
         return false;
     }
 

@@ -3,7 +3,9 @@ import student.crazyeights.PlayerStrategy;
 import student.crazyeights.StrategyA;
 import student.crazyeights.StrategyB;
 
-
+/**
+ * @author Samaah Khan
+ */
 public class Main {
     public static void main(String[] args) {
         // TODO(student): Finish this.
