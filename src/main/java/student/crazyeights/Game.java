@@ -15,6 +15,8 @@ public class Game {
     PlayerStrategy playerThree = new StrategyB();
     PlayerStrategy playerFour = new StrategyB();
 
+    ArrayList<PlayerStrategy> players = new ArrayList<PlayerStrategy>();
+
     int playerOneID = 1;
     int playerTwoID = 2;
     int playerThreeID = 3;
@@ -29,49 +31,53 @@ public class Game {
     boolean isTournamentOver = false;
 
     List<Card> cardDeck = Card.getDeck();
+    ArrayList<Card> playerOneCards = new ArrayList<>();
+    ArrayList<Card> playerTwoCards = new ArrayList<>();
+    ArrayList<Card> playerThreeCards = new ArrayList<>();
+    ArrayList<Card> playerFourCards = new ArrayList<>();
     int cardDeckPosition = 0;
 
 
 
     public void runGame() {
-
         initializeTournament();
-
-        if (isNewGame) {
-            initializeGame();
-        }
-
         Card topCard = cardDeck.get(cardDeckPosition);
         cardDeckPosition++;
         Card.Suit changedSuit = null;
 
         while(!isTournamentOver) {
-            // call reset after every turn and in reset check to see if the game is actually over
-            // one player turn
+
+            if (isNewGame) {
+                initializeGame();
+                isNewGame = false;
+            }
+
+            // should be in a loop ?
             if (playerOne.shouldDrawCard(topCard,changedSuit)) {
                 playerOne.receiveCard(cardDeck.get(cardDeckPosition));
+                cardDeck.remove(cardDeckPosition);
                 cardDeckPosition++;
             } else {
                 playerOne.playCard();
                 // change top card to the card that the player just put down
             }
-            playerOne.reset();
+            if (cardDeck.size() == 0) {
+                initializeGame();
+            }
 
-            if (playerTwo.shouldDrawCard(topCard,changedSuit)) {
+            // check if the game ends by seeing if player has no more cards
+
+            if (playerTwo.shouldDrawCard(topCard, changedSuit)) {
                 playerTwo.receiveCard(cardDeck.get(cardDeckPosition));
             } else {
                 playerTwo.playCard();
                 // change top card
             }
-            playerTwo.reset();
+
 
             // do this same thing for player three and player four
 
-
-
-    }
-
-
+        }
     }
     public void initializeTournament() {
         ArrayList<Integer> opponentID = new ArrayList<>();
@@ -80,104 +86,30 @@ public class Game {
         opponentID.add(playerFourID);
 
         playerOne.init(playerOneID, opponentID);
+        // should i do this for each of the players
     }
     public void initializeGame() {
+        cardDeck = Card.getDeck();
         Collections.shuffle(cardDeck);
+        int numPlayerCards = 5;
+
         playerOne.receiveInitialCards(cardDeck);
         playerTwo.receiveInitialCards(cardDeck);
         playerThree.receiveInitialCards(cardDeck);
         playerFour.receiveInitialCards(cardDeck);
-    }
 
+        playerOneCards.clear();
+        playerTwoCards.clear();
+        playerThreeCards.clear();
+        playerFourCards.clear();
 
-
-    /*ArrayList<Card> discardPile = new ArrayList<Card>();
-    ArrayList<Card> drawPile = new ArrayList<Card>();
-
-    //holds all players and each player with its own cards
-    ArrayList<List<Card>> playerPile = new ArrayList<List<Card>>();
-
-    int[] playerId = {1,2,3,4};
-
-    public Game()
-    {
-
-    }
-    public Game(ArrayList<Card> discardPile,
-                ArrayList<Card> drawPile,
-                ArrayList<Card> playerOnePile,
-                ArrayList<Card> playerTwoPile,
-                ArrayList<Card> playerThreePile,
-                ArrayList<Card> playerFourPile) {
-
-        this.discardPile = discardPile;
-        this.drawPile = drawPile;
-
-        playerPile.add(playerOnePile);
-        playerPile.add(playerTwoPile);
-        playerPile.add(playerThreePile);
-        playerPile.add(playerFourPile);
-    }
-
-    public void StartGame() {
-
-        ArrayList<PlayerStrategy> players = new ArrayList<PlayerStrategy>();
-
-        PlayerStrategy playerOne = new StrategyA();
-        PlayerStrategy playerTwo = new StrategyA();
-        PlayerStrategy playerThree = new StrategyB();
-        PlayerStrategy playerFour = new StrategyB();
-
-        players.add(playerOne);
-        players.add(playerTwo);
-        players.add(playerThree);
-        players.add(playerFour);
-
-        for (int turn = 0; turn < players.size(); turn++) {
-            PlayerStrategy player = players.get(turn);
-            player.reset();
-
-            player.init(playerId[turn], null);
-            ArrayList<Card> currentPlayerPile = (ArrayList<Card>) playerPile.get(turn);
-            player.receiveInitialCards(currentPlayerPile);
-        }
-
-        while (!GameOver())
-        {
-
-            for (int turn = 0; turn < players.size(); turn++)
-            {
-                PlayerStrategy player = players.get(turn);
-
-                int topCardIndex = this.drawPile.size()-1;
-                Card topCard = this.drawPile.get(topCardIndex);
-
-                PlayerTurn objPlayerTurn = new PlayerTurn();
-                objPlayerTurn.playerId = playerId[turn];
-
-                ArrayList<Card> currentPlayerPile = (ArrayList<Card>) playerPile.get(turn);
-
-                if (player.shouldDrawCard(topCard, player.declareSuit()))
-                {
-                    player.receiveCard(topCard);
-                    currentPlayerPile.add(topCard);
-                    objPlayerTurn.drewACard = true;
-                }
-                else {
-                    Card card = player.playCard();
-                    currentPlayerPile.remove(card);
-                    discardPile.add(card);
-                }
-            }
+        for (int cardIndex = 0; cardIndex < numPlayerCards; cardIndex++) {
+            playerOneCards.add(cardDeck.get(cardIndex));
+            playerTwoCards.add(cardDeck.get(cardIndex));
+            playerThreeCards.add(cardDeck.get(cardIndex));
+            playerFourCards.add(cardDeck.get(cardIndex));
         }
     }
 
-    public boolean GameOver()
-    {
-        return false;
-    }
-
-
-     */
 
 }
