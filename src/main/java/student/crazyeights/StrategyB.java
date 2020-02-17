@@ -49,7 +49,7 @@ public class StrategyB implements PlayerStrategy {
 
     @Override
     public Card.Suit declareSuit() {
-        //return playerCards.get(0).getSuit();
+        return playerCards.get(0).getSuit();
     }
 
     @Override

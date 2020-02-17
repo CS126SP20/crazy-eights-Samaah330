@@ -55,7 +55,7 @@ public class StrategyA implements PlayerStrategy {
     @Override
     public Card.Suit declareSuit() {
         // always declares clubs
-        //return Card.Suit.CLUBS;
+        return Card.Suit.CLUBS;
     }
 
     @Override
