@@ -6,9 +6,11 @@ import java.util.List;
 
 public class StrategyA implements PlayerStrategy {
     ArrayList<Card> playerCards = new ArrayList<>();
+    int numDrawCards = 5;
 
     @Override
     public void init(int playerId, List<Integer> opponentIds) {
+        // put it in some for loop or something
         System.out.println("You are player " + playerId +
                 " and you are playing against player " + opponentIds.get(0) +
                 " , " + opponentIds.get(1) + " ,and " + opponentIds.get(2));
@@ -17,11 +19,9 @@ public class StrategyA implements PlayerStrategy {
     @Override
     public void receiveInitialCards(List<Card> cards) {
         playerCards.clear();
-        playerCards.add(cards.get(0));
-        playerCards.add(cards.get(1));
-        playerCards.add(cards.get(2));
-        playerCards.add(cards.get(3));
-        playerCards.add(cards.get(4));
+        for (int cardIndex = 0; cardIndex < numDrawCards; cardIndex++) {
+            playerCards.add(cards.get(cardIndex));
+        }
     }
 
     @Override

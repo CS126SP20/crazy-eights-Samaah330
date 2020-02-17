@@ -5,6 +5,7 @@ import java.util.List;
 
 public class StrategyB implements PlayerStrategy {
     ArrayList<Card> playerCards = new ArrayList<>();
+    int numDrawCards = 5;
     @Override
     public void init(int playerId, List<Integer> opponentIds) {
         // would the id's have to be diff than strategy A ..?
@@ -15,11 +16,10 @@ public class StrategyB implements PlayerStrategy {
 
     @Override
     public void receiveInitialCards(List<Card> cards) {
-        playerCards.add(cards.get(0));
-        playerCards.add(cards.get(1));
-        playerCards.add(cards.get(2));
-        playerCards.add(cards.get(3));
-        playerCards.add(cards.get(4));
+        playerCards.clear();
+        for (int cardIndex = 0; cardIndex < numDrawCards; cardIndex++) {
+            playerCards.add(cards.get(cardIndex));
+        }
     }
 
     @Override
