@@ -53,33 +53,19 @@ public class Game {
             }
 
             for (int playerId = playerOneID; playerId < playerFourID; playerId++) {
-                if ()
+                if (players.get(playerId).shouldDrawCard(topCard, changedSuit)) {
+                    players.get(playerId).receiveCard(cardDeck.get(cardDeckPosition));
+                    cardDeck.remove(cardDeckPosition);
+                    cardDeckPosition++;
+                }
+                else {
+                    players.get(playerId).playCard();
+                    // change top card
+                }
+                if (cardDeck.size() == 0) { // also or if the player cards are empty
+                    initializeGame();
+                }
             }
-            // should be in a loop ?
-            if (playerOne.shouldDrawCard(topCard,changedSuit)) {
-                playerOne.receiveCard(cardDeck.get(cardDeckPosition));
-                cardDeck.remove(cardDeckPosition);
-                cardDeckPosition++;
-            } else {
-                playerOne.playCard();
-                // change top card to the card that the player just put down
-            }
-            if (cardDeck.size() == 0) {
-                initializeGame();
-            }
-
-            // check if the game ends by seeing if player has no more cards
-
-            if (playerTwo.shouldDrawCard(topCard, changedSuit)) {
-                playerTwo.receiveCard(cardDeck.get(cardDeckPosition));
-            } else {
-                playerTwo.playCard();
-                // change top card
-            }
-
-
-            // do this same thing for player three and player four
-
         }
     }
     public void initializeTournament() {

@@ -16,6 +16,7 @@ public class StrategyA implements PlayerStrategy {
 
     @Override
     public void receiveInitialCards(List<Card> cards) {
+        playerCards.clear();
         playerCards.add(cards.get(0));
         playerCards.add(cards.get(1));
         playerCards.add(cards.get(2));
@@ -40,7 +41,6 @@ public class StrategyA implements PlayerStrategy {
 
     @Override
     public void receiveCard(Card drawnCard) {
-
     }
 
     @Override
