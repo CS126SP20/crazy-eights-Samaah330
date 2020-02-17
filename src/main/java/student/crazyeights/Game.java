@@ -82,10 +82,9 @@ public class Game {
         Collections.shuffle(cardDeck);
         int numPlayerCards = 5;
 
-        playerOne.receiveInitialCards(cardDeck);
-        playerTwo.receiveInitialCards(cardDeck);
-        playerThree.receiveInitialCards(cardDeck);
-        playerFour.receiveInitialCards(cardDeck);
+        for (int index = 0; index < players.size(); index++) {
+            players.get(index).receiveInitialCards(cardDeck);
+        }
 
         playerOneCards.clear();
         playerTwoCards.clear();
