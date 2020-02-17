@@ -44,14 +44,17 @@ public class Game {
         Card topCard = cardDeck.get(cardDeckPosition);
         cardDeckPosition++;
         Card.Suit changedSuit = null;
+        addPlayersToPlayerList();
 
         while(!isTournamentOver) {
-
             if (isNewGame) {
                 initializeGame();
                 isNewGame = false;
             }
 
+            for (int playerId = playerOneID; playerId < playerFourID; playerId++) {
+                if ()
+            }
             // should be in a loop ?
             if (playerOne.shouldDrawCard(topCard,changedSuit)) {
                 playerOne.receiveCard(cardDeck.get(cardDeckPosition));
@@ -109,6 +112,13 @@ public class Game {
             playerThreeCards.add(cardDeck.get(cardIndex));
             playerFourCards.add(cardDeck.get(cardIndex));
         }
+    }
+
+    public void addPlayersToPlayerList() {
+        players.add(playerOne);
+        players.add(playerTwo);
+        players.add(playerThree);
+        players.add(playerFour);
     }
 
 
