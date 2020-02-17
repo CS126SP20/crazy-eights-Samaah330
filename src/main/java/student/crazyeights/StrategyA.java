@@ -7,6 +7,7 @@ import java.util.List;
 public class StrategyA implements PlayerStrategy {
     ArrayList<Card> playerCards = new ArrayList<>();
     int numDrawCards = 5;
+    Card playCard;
 
     @Override
     public void init(int playerId, List<Integer> opponentIds) {
@@ -26,14 +27,16 @@ public class StrategyA implements PlayerStrategy {
 
     @Override
     public boolean shouldDrawCard(Card topPileCard, Card.Suit changedSuit) {
-        for (int cardIndex = 0; cardIndex < playerCards.size(); cardIndex++) {
-            if (playerCards.get(cardIndex).equals(topPileCard)) {
-                return false;
-            }
-        }
         for (int cardIndex = 0; cardIndex <playerCards.size(); cardIndex++) {
             if (playerCards.get(cardIndex).getRank().equals(Card.Rank.EIGHT)) {
+                playCard = playerCards.get(cardIndex);
                 return false; // because you would put down your crazy eight and change suit
+            }
+        }
+        for (int cardIndex = 0; cardIndex < playerCards.size(); cardIndex++) {
+            if (playerCards.get(cardIndex).equals(topPileCard)) {
+                playCard = playerCards.get(cardIndex);
+                return false;
             }
         }
         return true;
@@ -41,16 +44,18 @@ public class StrategyA implements PlayerStrategy {
 
     @Override
     public void receiveCard(Card drawnCard) {
+        playerCards.add(drawnCard);
     }
 
     @Override
     public Card playCard() {
-        return null;
+        return playCard;
     }
 
     @Override
     public Card.Suit declareSuit() {
-        return null;
+        // always declares clubs
+        //return Card.Suit.CLUBS;
     }
 
     @Override

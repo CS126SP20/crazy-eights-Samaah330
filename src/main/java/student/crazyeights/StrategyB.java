@@ -6,6 +6,7 @@ import java.util.List;
 public class StrategyB implements PlayerStrategy {
     ArrayList<Card> playerCards = new ArrayList<>();
     int numDrawCards = 5;
+    Card playCard;
     @Override
     public void init(int playerId, List<Integer> opponentIds) {
         // would the id's have to be diff than strategy A ..?
@@ -24,8 +25,11 @@ public class StrategyB implements PlayerStrategy {
 
     @Override
     public boolean shouldDrawCard(Card topPileCard, Card.Suit changedSuit) {
+        // strategy B also checks for the rank and suite while strategy A checks to see if its the same exact card
         for (int cardIndex = 0; cardIndex < playerCards.size(); cardIndex++) {
-            if (playerCards.get(cardIndex).equals(topPileCard)) {
+            if (playerCards.get(cardIndex).getRank().equals(topPileCard) ||
+                playerCards.get(cardIndex).getSuit().equals(topPileCard)) {
+                playCard = playerCards.get(cardIndex);
                 return false;
             }
         }
@@ -35,17 +39,17 @@ public class StrategyB implements PlayerStrategy {
 
     @Override
     public void receiveCard(Card drawnCard) {
-
+        playerCards.add(drawnCard);
     }
 
     @Override
     public Card playCard() {
-        return null;
+        return playCard;
     }
 
     @Override
     public Card.Suit declareSuit() {
-        return null;
+        //return playerCards.get(0).getSuit();
     }
 
     @Override
