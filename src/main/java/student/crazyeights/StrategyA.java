@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+// Questions:
+// confused about processOpponentActionsMethod
+// ID thing
+
 public class StrategyA implements PlayerStrategy {
     ArrayList<Card> playerCards = new ArrayList<>();
     int numDrawCards = 5;
@@ -11,7 +15,6 @@ public class StrategyA implements PlayerStrategy {
 
     @Override
     public void init(int playerId, List<Integer> opponentIds) {
-        // put it in some for loop or something
         System.out.println("You are player " + playerId +
                 " and you are playing against player " + opponentIds.get(0) +
                 " , " + opponentIds.get(1) + " ,and " + opponentIds.get(2));
@@ -29,7 +32,7 @@ public class StrategyA implements PlayerStrategy {
         for (int cardIndex = 0; cardIndex <playerCards.size(); cardIndex++) {
             if (playerCards.get(cardIndex).getRank().equals(Card.Rank.EIGHT)) {
                 playCard = playerCards.get(cardIndex);
-                return false; // because you would put down your crazy eight and change suit
+                return false;
             }
         }
         for (int cardIndex = 0; cardIndex < playerCards.size(); cardIndex++) {
@@ -53,13 +56,12 @@ public class StrategyA implements PlayerStrategy {
 
     @Override
     public Card.Suit declareSuit() {
-        // always declares clubs
         return Card.Suit.CLUBS;
     }
 
+    // really confused about this method
     @Override
     public void processOpponentActions(List<PlayerTurn> opponentActions) {
-
     }
 
     @Override

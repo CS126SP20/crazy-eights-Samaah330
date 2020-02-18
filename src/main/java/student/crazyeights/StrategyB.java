@@ -9,10 +9,7 @@ public class StrategyB implements PlayerStrategy {
     Card playCard;
     @Override
     public void init(int playerId, List<Integer> opponentIds) {
-        // would the id's have to be diff than strategy A ..?
-        System.out.println("You are player " + playerId +
-                " and you are playing against player " + opponentIds.get(0) +
-                " , " + opponentIds.get(1) + " ,and " + opponentIds.get(2));
+        System.out.println("You are player " + playerId);
     }
 
     @Override
@@ -25,7 +22,6 @@ public class StrategyB implements PlayerStrategy {
 
     @Override
     public boolean shouldDrawCard(Card topPileCard, Card.Suit changedSuit) {
-        // strategy B also checks for the rank and suite while strategy A checks to see if its the same exact card
         for (int cardIndex = 0; cardIndex < playerCards.size(); cardIndex++) {
             if (playerCards.get(cardIndex).getRank().equals(topPileCard) ||
                 playerCards.get(cardIndex).getSuit().equals(topPileCard)) {
@@ -59,6 +55,6 @@ public class StrategyB implements PlayerStrategy {
 
     @Override
     public void reset() {
-
+        playerCards.clear();
     }
 }

@@ -11,7 +11,7 @@ public class Main {
         // TODO(student): Finish this.
 
         Game objGame = new Game();
-        objGame.runGame();
+        objGame.runTournament();
         /*Game objGame = new Game();
         objGame.StartGame();
 
