@@ -15,7 +15,7 @@ public class Game {
     PlayerStrategy playerThree = new StrategyB();
     PlayerStrategy playerFour = new StrategyB();
 
-    ArrayList<PlayerStrategy> players = new ArrayList<PlayerStrategy>();
+    List<PlayerStrategy> players = new ArrayList<>();
 
     int playerOneID = 1;
     int playerTwoID = 2;
@@ -27,6 +27,11 @@ public class Game {
     int playerThreePoints = 0;
     int playerFourPoints = 0;
 
+    ArrayList<Integer> playerPoints = new ArrayList<>();
+
+    int eightCardPoints = 50;
+    int faceCardPoints = 10;
+
     boolean isNewGame = true;
     boolean isTournamentOver = false;
 
@@ -35,28 +40,30 @@ public class Game {
     ArrayList<Card> playerTwoCards = new ArrayList<>();
     ArrayList<Card> playerThreeCards = new ArrayList<>();
     ArrayList<Card> playerFourCards = new ArrayList<>();
-    int cardDeckPosition = 0;
+    ArrayList<ArrayList<Card>> allPlayerCards = new ArrayList<>();
+    int cardDeckPosition = cardDeck.size() - 1;
 
 
 
     public void runGame() {
         initializeTournament();
-        Card topCard = cardDeck.get(cardDeckPosition);
-        cardDeckPosition++;
-        Card.Suit changedSuit = null;
         addPlayersToPlayerList();
+        addPlayerCardsToAllPlayerCardsList();
+        addPlayerPointsToList();
 
         while(!isTournamentOver) {
             if (isNewGame) {
                 initializeGame();
                 isNewGame = false;
             }
+            Card topCard = cardDeck.get(cardDeckPosition);
+            cardDeck.remove(cardDeckPosition);
+            //cardDeckPosition--;
 
-            for (int playerId = playerOneID; playerId < playerFourID; playerId++) {
-                if (players.get(playerId).shouldDrawCard(topCard, changedSuit)) {
+            for (int playerId = playerOneID; playerId <= playerFourID; playerId++) {
+                if (players.get(playerId).shouldDrawCard(topCard, players.get(playerId).declareSuit())) {
                     players.get(playerId).receiveCard(cardDeck.get(cardDeckPosition));
                     cardDeck.remove(cardDeckPosition);
-                    cardDeckPosition++;
                 }
                 else {
                     players.get(playerId).playCard();
@@ -69,20 +76,40 @@ public class Game {
         }
     }
     public void initializeTournament() {
-        ArrayList<Integer> opponentID = new ArrayList<>();
-        opponentID.add(playerTwoID);
-        opponentID.add(playerThreeID);
-        opponentID.add(playerFourID);
+        ArrayList<Integer> opponentIDPlayerOne = new ArrayList<>();
+        opponentIDPlayerOne.add(playerTwoID);
+        opponentIDPlayerOne.add(playerThreeID);
+        opponentIDPlayerOne.add(playerFourID);
 
-        playerOne.init(playerOneID, opponentID);
-        // should i do this for each of the players
+        ArrayList<Integer> opponentIDPlayerTwo = new ArrayList<>();
+        opponentIDPlayerTwo.add(playerOneID);
+        opponentIDPlayerTwo.add(playerThreeID);
+        opponentIDPlayerTwo.add(playerFourID);
+
+        ArrayList<Integer> opponentIDPlayerThree = new ArrayList<>();
+        opponentIDPlayerThree.add(playerOneID);
+        opponentIDPlayerThree.add(playerTwoID);
+        opponentIDPlayerThree.add(playerFourID);
+
+        ArrayList<Integer> opponentIDPlayerFour = new ArrayList<>();
+        opponentIDPlayerFour.add(playerOneID);
+        opponentIDPlayerFour.add(playerTwoID);
+        opponentIDPlayerFour.add(playerThreeID);
+
+        playerOne.init(playerOneID, opponentIDPlayerOne);
+        playerTwo.init(playerTwoID, opponentIDPlayerTwo);
+        playerThree.init(playerThreeID, opponentIDPlayerThree);
+        playerFour.init(playerFourID, opponentIDPlayerFour);
     }
     public void initializeGame() {
+        sumPoints();
+        // check to see if the tournament is over
         cardDeck = Card.getDeck();
         Collections.shuffle(cardDeck);
         int numPlayerCards = 5;
 
         for (int index = 0; index < players.size(); index++) {
+            players.get(index).reset();
             players.get(index).receiveInitialCards(cardDeck);
         }
 
@@ -106,5 +133,38 @@ public class Game {
         players.add(playerFour);
     }
 
+    public void addPlayerCardsToAllPlayerCardsList() {
+        allPlayerCards.add(playerOneCards);
+        allPlayerCards.add(playerTwoCards);
+        allPlayerCards.add(playerThreeCards);
+        allPlayerCards.add(playerFourCards);
+    }
+
+    public void addPlayerPointsToList() {
+        playerPoints.add(playerOnePoints);
+        playerPoints.add(playerTwoPoints);
+        playerPoints.add(playerThreePoints);
+        playerPoints.add(playerFourPoints);
+    }
+
+    public void sumPoints() {
+
+        for (int j = 0; j < allPlayerCards.size(); j++) {
+            for (int i = 0; i < allPlayerCards.get(j).size(); i ++) {
+                if (allPlayerCards.get(j).get(i).getRank().equals(Card.Rank.EIGHT)) {
+                    playerPoints.get(j);
+                }
+            }
+        }
+
+        for (int index = 0; index < playerOneCards.size(); index++) {
+            if (playerOneCards.get(index).getRank().equals(Card.Rank.EIGHT)) {
+                playerOnePoints += eightCardPoints;
+            } else if (playerOneCards.get(index).getRank().equals(Card.Rank.KING)) {
+                playerOnePoints+= faceCardPoints;
+            }
+           // } else if (playerOneCards.get(index).getSuit().equals(Card.))
+        }
+    }
 
 }
