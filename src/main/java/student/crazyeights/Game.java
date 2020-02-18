@@ -17,10 +17,10 @@ public class Game {
 
     List<PlayerStrategy> players = new ArrayList<>();
 
-    int playerOneID = 1;
-    int playerTwoID = 2;
-    int playerThreeID = 3;
-    int playerFourID = 4;
+    int playerOneID = 0;
+    int playerTwoID = 1;
+    int playerThreeID = 2;
+    int playerFourID = 3;
 
     int playerOnePoints = 0;
     int playerTwoPoints = 0;
@@ -63,27 +63,26 @@ public class Game {
     public void playGame() {
         initializeGame();
 
-        //boolean isPlayerCardsEmpty = false;
         Card topCard = cardDeck.get(cardDeckPosition);
         cardDeck.remove(cardDeckPosition);
         cardDeckPosition = cardDeck.size() - 1;
 
-        for (int playerId = playerOneID - 1; playerId < playerFourID; playerId++) {
+        for (int playerId = playerOneID; playerId <= playerFourID; playerId++) {
             if (players.get(playerId).shouldDrawCard(topCard, players.get(playerId).declareSuit())) {
                 if (cardDeck.size() == 0) {
                     System.out.println("Exiting game because card deck is empty");
                     return;
                 }
                 players.get(playerId).receiveCard(cardDeck.get(cardDeckPosition));
-                // add the card to playerCard
+                allPlayerCards.get(playerId).add(cardDeck.get(cardDeckPosition));
                 cardDeck.remove(cardDeckPosition);
                 cardDeckPosition = cardDeck.size() - 1;
             }
             else {
-                players.get(playerId).playCard();
-                // remove the card that they played from playercards and then make that the top card
+                Card cardPlayed = players.get(playerId).playCard();
+                allPlayerCards.get(playerId).remove(cardPlayed);
+                topCard = cardPlayed;
             }
-
             if (isPlayerCardsEmpty()) {
                 return;
             }
@@ -92,6 +91,7 @@ public class Game {
             }
         }
     }
+
     public boolean isPlayerCardsEmpty() {
         for (int i = 0; i < allPlayerCards.size(); i++) {
            if (allPlayerCards.get(i).isEmpty()) {
