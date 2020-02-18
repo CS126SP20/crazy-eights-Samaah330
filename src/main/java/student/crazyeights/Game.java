@@ -73,9 +73,9 @@ public class Game {
 
         for (int playerId = playerOneID - 1; playerId < playerFourID; playerId++) {
             if (players.get(playerId).shouldDrawCard(topCard, players.get(playerId).declareSuit())) {
-                /*if (cardDeck.size() == 0) {
+                if (cardDeck.size() == 0) {
                     return; // exits playGame
-                }*/
+                }
                 players.get(playerId).receiveCard(cardDeck.get(cardDeckPosition));
                 // add the card to playerCard
                 cardDeck.remove(cardDeckPosition);
