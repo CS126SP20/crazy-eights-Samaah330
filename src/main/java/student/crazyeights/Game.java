@@ -41,39 +41,61 @@ public class Game {
     ArrayList<Card> playerThreeCards = new ArrayList<>();
     ArrayList<Card> playerFourCards = new ArrayList<>();
     ArrayList<ArrayList<Card>> allPlayerCards = new ArrayList<>();
+
     int cardDeckPosition = cardDeck.size() - 1;
 
-
-
-    public void runGame() {
+    public void runTournament() {
         initializeTournament();
         addPlayersToPlayerList();
         addPlayerCardsToAllPlayerCardsList();
         addPlayerPointsToList();
 
-        while(!isTournamentOver) {
-            if (isNewGame) {
-                initializeGame();
-                isNewGame = false;
-            }
-            Card topCard = cardDeck.get(cardDeckPosition);
-            cardDeck.remove(cardDeckPosition);
-            //cardDeckPosition--;
-
-            for (int playerId = playerOneID; playerId <= playerFourID; playerId++) {
-                if (players.get(playerId).shouldDrawCard(topCard, players.get(playerId).declareSuit())) {
-                    players.get(playerId).receiveCard(cardDeck.get(cardDeckPosition));
-                    cardDeck.remove(cardDeckPosition);
-                }
-                else {
-                    players.get(playerId).playCard();
-                    // change top card
-                }
-                if (cardDeck.size() == 0) { // also or if the player cards are empty
-                    initializeGame();
-                }
+       // run game again and again until a player gets 200 points
+        int index = 0;
+        while (playerPoints.get(index) < 200) {
+            playGame();
+            index++;
+            if (index == 4) {
+                index = 0;
             }
         }
+
+    }
+
+    public void playGame() {
+        initializeGame();
+
+        //boolean isPlayerCardsEmpty = false;
+        Card topCard = cardDeck.get(cardDeckPosition);
+        cardDeck.remove(cardDeckPosition);
+        cardDeckPosition = cardDeck.size() - 1;
+
+
+        for (int playerId = playerOneID - 1; playerId < playerFourID; playerId++) {
+            if (players.get(playerId).shouldDrawCard(topCard, players.get(playerId).declareSuit())) {
+                /*if (cardDeck.size() == 0) {
+                    return; // exits playGame
+                }*/
+                players.get(playerId).receiveCard(cardDeck.get(cardDeckPosition));
+                // add the card to playerCard
+                cardDeck.remove(cardDeckPosition);
+                cardDeckPosition = cardDeck.size() - 1;
+            }
+            else {
+                players.get(playerId).playCard();
+                // remove the card that they played from playercards and then make that the top card
+            }
+
+            if (isPlayerCardsEmpty()) {
+                return;
+            }
+            if (cardDeck.size() == 0) { // also or if the player cards are empty
+                return;
+            }
+        }
+    }
+    public boolean isPlayerCardsEmpty() {
+        return false;
     }
     public void initializeTournament() {
         ArrayList<Integer> opponentIDPlayerOne = new ArrayList<>();
