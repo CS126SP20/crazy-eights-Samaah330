@@ -32,9 +32,6 @@ public class Game {
     int eightCardPoints = 50;
     int faceCardPoints = 10;
 
-    boolean isNewGame = true;
-    boolean isTournamentOver = false;
-
     List<Card> cardDeck = Card.getDeck();
     ArrayList<Card> playerOneCards = new ArrayList<>();
     ArrayList<Card> playerTwoCards = new ArrayList<>();
@@ -53,6 +50,7 @@ public class Game {
        // run game again and again until a player gets 200 points
         int index = 0;
         while (playerPoints.get(index) < 200) {
+            System.out.println("Starting new game");
             playGame();
             index++;
             if (index == 4) {
@@ -70,11 +68,11 @@ public class Game {
         cardDeck.remove(cardDeckPosition);
         cardDeckPosition = cardDeck.size() - 1;
 
-
         for (int playerId = playerOneID - 1; playerId < playerFourID; playerId++) {
             if (players.get(playerId).shouldDrawCard(topCard, players.get(playerId).declareSuit())) {
                 if (cardDeck.size() == 0) {
-                    return; // exits playGame
+                    System.out.println("Exiting game because card deck is empty");
+                    return;
                 }
                 players.get(playerId).receiveCard(cardDeck.get(cardDeckPosition));
                 // add the card to playerCard
@@ -95,6 +93,11 @@ public class Game {
         }
     }
     public boolean isPlayerCardsEmpty() {
+        for (int i = 0; i < allPlayerCards.size(); i++) {
+           if (allPlayerCards.get(i).isEmpty()) {
+               return true;
+            }
+        }
         return false;
     }
     public void initializeTournament() {
@@ -170,7 +173,6 @@ public class Game {
     }
 
     public void sumPoints() {
-
         for (int j = 0; j < allPlayerCards.size(); j++) {
             for (int i = 0; i < allPlayerCards.get(j).size(); i ++) {
                 if (allPlayerCards.get(j).get(i).getRank().equals(Card.Rank.EIGHT)) {
