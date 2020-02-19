@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-// Questions:
-// confused about processOpponentActionsMethod
-// ID thing
 
 public class StrategyA implements PlayerStrategy {
     public ArrayList<Card> playerCards = new ArrayList<>();
@@ -42,11 +39,6 @@ public class StrategyA implements PlayerStrategy {
             }
         }
 
-       /* for (Card c : playerCards) {
-            if (c.equals(topPileCard)) {
-                return false;
-            }
-        }*/
         return true;
     }
 
@@ -63,10 +55,9 @@ public class StrategyA implements PlayerStrategy {
 
     @Override
     public Card.Suit declareSuit() {
-        return null; // player never declares suit
+        return null;
     }
 
-    // really confused about this method
     @Override
     public void processOpponentActions(List<PlayerTurn> opponentActions) {
     }
