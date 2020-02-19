@@ -3,10 +3,18 @@ package student.crazyeights;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Second implementation of PlayerStrategy
+ * In this strategy the player does not check for eights
+ * and checks for either the same suit or rank
+ * declares the suit as the first card in their deck
+ */
 public class StrategyB implements PlayerStrategy {
+
     ArrayList<Card> playerCards = new ArrayList<>();
     int numDrawCards = 5;
     Card playCard;
+
     @Override
     public void init(int playerId, List<Integer> opponentIds) {
         System.out.println("You are player " + playerId);

@@ -1,12 +1,11 @@
 package student.crazyeights;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
- * Main game engine
+ * Main game engine that runs entire tournament of Crazy Eights game
  */
 public class Game {
 
@@ -55,10 +54,11 @@ public class Game {
     }
 
     /**
-     * runs one game
+     * runs one game with mutliple rounds until one of the player's cards are empty
+     * or cardDeck is empty
+     * runs as long as the tournament is not over if a player meets or exceeds winning points
      */
     public void playGame() {
-        System.out.println("starting new game");
         initializeGame();
 
         cardDeckPosition = cardDeck.size() - 1;
@@ -87,7 +87,7 @@ public class Game {
     }
 
     /**
-     *
+     * player draws card from deck if shouldDrawCard returns true
      * @param playerId identifies which player draws card
      */
     public void drawCard(int playerId) {
@@ -100,6 +100,10 @@ public class Game {
         cardDeckPosition = cardDeck.size() - 1;
     }
 
+    /**
+     * checks if each player's cards are empty after each player turn
+     * @return true if a player has no more cards
+     */
     public boolean isPlayerCardsEmpty() {
         for (int i = 0; i < allPlayerCards.size(); i++) {
            if (allPlayerCards.get(i).isEmpty()) {
@@ -108,6 +112,11 @@ public class Game {
         }
         return false;
     }
+
+    /**
+     * sets player Id for each player and lists its opponents
+     * runs once at the start of the tournament
+     */
     public void initializeTournament() {
         ArrayList<Integer> opponentIDPlayerOne = new ArrayList<>();
         opponentIDPlayerOne.add(playerTwoID);
@@ -134,8 +143,13 @@ public class Game {
         playerThree.init(playerThreeID, opponentIDPlayerThree);
         playerFour.init(playerFourID, opponentIDPlayerFour);
     }
+
+    /**
+     * resets state of each players cards by shuffling deck of cards, clearing cards,
+     * and receiving initial cards,
+     * runs at the start of every new game
+     */
     public void initializeGame() {
-        // check to see if the tournament is over
         cardDeck = Card.getDeck();
         Collections.shuffle(cardDeck);
         int numPlayerCards = 5;
@@ -158,6 +172,10 @@ public class Game {
         }
     }
 
+    /**
+     * adds players to a List of all the players
+     * runs at the beginning of the tournament
+     */
     public void addPlayersToPlayerList() {
         players.add(playerOne);
         players.add(playerTwo);
@@ -165,6 +183,10 @@ public class Game {
         players.add(playerFour);
     }
 
+    /**
+     * adds each player's cards to a list
+     * runs at the start of the tournament
+     */
     public void addPlayerCardsToAllPlayerCardsList() {
         allPlayerCards.add(playerOneCards);
         allPlayerCards.add(playerTwoCards);
@@ -172,6 +194,10 @@ public class Game {
         allPlayerCards.add(playerFourCards);
     }
 
+    /**
+     * adds each of the player points to a list
+     * runs at the beginning of the tournament
+     */
     public void addPlayerPointsToList() {
         playerPoints.add(playerOnePoints);
         playerPoints.add(playerTwoPoints);
@@ -181,20 +207,28 @@ public class Game {
 
     /**
      * checks to see if the tournament is over by summing all player's points at the end of each game
-     * @return true if a player has more than 200 points
+     * @return true if a player has more than 200 points, false otherwise
      */
     public boolean isTournamentOver() {
-        System.out.println("checking to see if tournament is over");
         for (int playerID = 0; playerID < allPlayerCards.size(); playerID++) {
             for (int i = 0; i < allPlayerCards.get(playerID).size(); i ++) {
+                int cardPoint =  allPlayerCards.get(playerID).get(i).getPointValue();
                 if (playerID == 0) {
-                    playerOnePoints += allPlayerCards.get(playerID).get(i).getPointValue();
+                    playerTwoPoints += cardPoint;
+                    playerThreePoints += cardPoint;
+                    playerFourPoints +=  cardPoint;
                 } else if (playerID == 1) {
-                    playerTwoPoints += allPlayerCards.get(playerID).get(i).getPointValue();
+                    playerOnePoints += cardPoint;
+                    playerThreePoints += cardPoint;
+                    playerFourPoints += cardPoint;
                 } else if (playerID == 2) {
-                    playerThreePoints += allPlayerCards.get(playerID).get(i).getPointValue();
+                    playerOnePoints += cardPoint;
+                    playerTwoPoints += cardPoint;
+                    playerFourPoints += cardPoint;
                 } else if (playerID == 3) {
-                    playerFourPoints += allPlayerCards.get(playerID).get(i).getPointValue();
+                    playerOnePoints += cardPoint;
+                    playerTwoPoints += cardPoint;
+                    playerThreePoints += cardPoint;
                 }
                 if (playerPoints.get(playerID) >= winningPoints) {
                     return true;

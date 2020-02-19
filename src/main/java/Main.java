@@ -1,21 +1,12 @@
 import student.crazyeights.Game;
-import student.crazyeights.PlayerStrategy;
-import student.crazyeights.StrategyA;
-import student.crazyeights.StrategyB;
 
 /**
+ * Crazy Eights Game
  * @author Samaah Khan
  */
 public class Main {
     public static void main(String[] args) {
-        // TODO(student): Finish this.
-
         Game objGame = new Game();
         objGame.runTournament();
-        /*Game objGame = new Game();
-        objGame.StartGame();
-
-         */
-
     }
 }

@@ -6,8 +6,13 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test for methods in StrategyA implementation
+ */
 public class StrategyATest {
+
     StrategyA strategyA;
+
     @Before
     public void setUp() {
         strategyA = new StrategyA();
@@ -40,7 +45,7 @@ public class StrategyATest {
     }
 
     @Test
-    public void testPlayerRecivesNewCard() {
+    public void testPlayerReceivesNewCard() {
         Card card = new Card(Suit.SPADES, Rank.SIX);
         strategyA.receiveCard(card);
         assertEquals(card, strategyA.playerCards.get(5));

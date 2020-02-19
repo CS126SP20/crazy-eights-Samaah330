@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
+/**
+ * First implementation of PlayerStrategy
+ * In this strategy the player only checks for the same
+ * exact card and for eights
+ * does not declare a suit
+ */
 public class StrategyA implements PlayerStrategy {
     public ArrayList<Card> playerCards = new ArrayList<>();
     int numDrawCards = 5;

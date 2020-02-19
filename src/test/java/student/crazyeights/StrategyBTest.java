@@ -8,8 +8,13 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test for methods in StrategyB implementation
+ */
 public class StrategyBTest {
+
     StrategyB strategyB;
+
     @Before
     public void setUp() {
         strategyB = new StrategyB();
