@@ -42,4 +42,35 @@ public class StrategyBTest {
         assertEquals(true, strategyB.shouldDrawCard(new Card(Suit.DIAMONDS, Rank.FOUR), null));
     }
 
+    @Test
+    public void testInitialPlayerCardSize() {
+        assertEquals(5, strategyB.playerCards.size());
+    }
+
+    @Test
+    public void testPlayerReceivesNewCard() {
+        Card card = new Card(Suit.SPADES, Rank.SIX);
+        strategyB.receiveCard(card);
+        assertEquals(card, strategyB.playerCards.get(5));
+    }
+
+    @Test
+    public void testPlayCardSameRank() {
+        strategyB.shouldDrawCard(new Card(Suit.SPADES, Rank.ACE), null);
+        assertEquals(new Card(Suit.DIAMONDS, Rank.ACE), strategyB.playCard());
+    }
+
+    @Test
+    public void testPlayCardSameSuit() {
+        strategyB.shouldDrawCard(new Card(Suit.HEARTS, Rank.TWO), Suit.SPADES);
+        assertEquals(new Card(Suit.HEARTS, Rank.NINE), strategyB.playCard);
+    }
+
+    @Test
+    public void testPlaySameCard() {
+        Card card = new Card(Suit.SPADES, Rank.KING);
+        strategyB.shouldDrawCard(card, null);
+        assertEquals(card, strategyB.playCard());
+    }
+
 }

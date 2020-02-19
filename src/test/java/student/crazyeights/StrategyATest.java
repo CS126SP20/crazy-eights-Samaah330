@@ -2,24 +2,16 @@ package student.crazyeights;
 
 import static student.crazyeights.Card.Rank;
 import static student.crazyeights.Card.Suit;
-
 import static org.junit.Assert.assertEquals;
-
-import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
 public class StrategyATest {
     StrategyA strategyA;
-    ArrayList<Card> playerCardsTest;
-    //private final PrintStream originalOut = System.out;
     @Before
     public void setUp() {
         strategyA = new StrategyA();
-        //playerCardsTest = new ArrayList<>();
         strategyA.playerCards.add(new Card(Suit.HEARTS, Rank.EIGHT));
         strategyA.playerCards.add(new Card(Suit.DIAMONDS, Rank.JACK));
         strategyA.playerCards.add(new Card(Suit.SPADES, Rank.SIX));

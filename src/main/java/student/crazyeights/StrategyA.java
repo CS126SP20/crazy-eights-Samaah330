@@ -9,15 +9,13 @@ import java.util.List;
 // ID thing
 
 public class StrategyA implements PlayerStrategy {
-    ArrayList<Card> playerCards = new ArrayList<>();
+    public ArrayList<Card> playerCards = new ArrayList<>();
     int numDrawCards = 5;
     Card playCard;
 
     @Override
     public void init(int playerId, List<Integer> opponentIds) {
-        System.out.println("You are player " + playerId +
-                " and you are playing against player " + opponentIds.get(0) +
-                " , " + opponentIds.get(1) + " ,and " + opponentIds.get(2));
+        System.out.println("You are player " + playerId);
     }
 
     @Override
@@ -29,18 +27,26 @@ public class StrategyA implements PlayerStrategy {
 
     @Override
     public boolean shouldDrawCard(Card topPileCard, Card.Suit changedSuit) {
-        for (int cardIndex = 0; cardIndex <playerCards.size(); cardIndex++) {
+        for (int cardIndex = 0; cardIndex < playerCards.size(); cardIndex++) {
             if (playerCards.get(cardIndex).getRank().equals(Card.Rank.EIGHT)) {
+                System.out.println(playCard);
                 playCard = playerCards.get(cardIndex);
                 return false;
             }
         }
-        for (int cardIndex = 0; cardIndex < playerCards.size(); cardIndex++) {
+
+       for (int cardIndex = 0; cardIndex < playerCards.size(); cardIndex++) {
             if (playerCards.get(cardIndex).equals(topPileCard)) {
                 playCard = playerCards.get(cardIndex);
                 return false;
             }
         }
+
+       /* for (Card c : playerCards) {
+            if (c.equals(topPileCard)) {
+                return false;
+            }
+        }*/
         return true;
     }
 
@@ -51,12 +57,13 @@ public class StrategyA implements PlayerStrategy {
 
     @Override
     public Card playCard() {
+       System.out.println(playCard);
         return playCard;
     }
 
     @Override
     public Card.Suit declareSuit() {
-        return Card.Suit.CLUBS;
+        return null; // player never declares suit
     }
 
     // really confused about this method

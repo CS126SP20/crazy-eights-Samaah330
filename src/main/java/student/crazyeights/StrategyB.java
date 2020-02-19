@@ -23,13 +23,12 @@ public class StrategyB implements PlayerStrategy {
     @Override
     public boolean shouldDrawCard(Card topPileCard, Card.Suit changedSuit) {
         for (int cardIndex = 0; cardIndex < playerCards.size(); cardIndex++) {
-            if (playerCards.get(cardIndex).getRank().equals(topPileCard) ||
-                playerCards.get(cardIndex).getSuit().equals(topPileCard)) {
+            if (playerCards.get(cardIndex).getRank().equals(topPileCard.getRank()) ||
+                playerCards.get(cardIndex).getSuit().equals(topPileCard.getSuit())) {
                 playCard = playerCards.get(cardIndex);
                 return false;
             }
         }
-        // strategy B is not very smart and wont check if they have eights
         return true;
     }
 
