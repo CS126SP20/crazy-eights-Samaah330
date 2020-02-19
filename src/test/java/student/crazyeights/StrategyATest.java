@@ -55,7 +55,7 @@ public class StrategyATest {
         assertEquals(card, strategyA.playerCards.get(5));
     }
 
-   /* @Test
+    @Test
     public void testPlayCardEight() {
         strategyA.shouldDrawCard(new Card(Suit.SPADES, Rank.ACE), null);
         assertEquals(new Card(Suit.HEARTS, Rank.EIGHT), strategyA.playCard());
@@ -67,7 +67,7 @@ public class StrategyATest {
         Card card = new Card(Suit.SPADES, Rank.SIX);
         strategyA.shouldDrawCard(card, null);
         assertEquals(card, strategyA.playCard());
-    }*/
+    }
 
 
 
