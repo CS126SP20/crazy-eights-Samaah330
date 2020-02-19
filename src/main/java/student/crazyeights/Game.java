@@ -59,6 +59,7 @@ public class Game {
      * runs as long as the tournament is not over if a player meets or exceeds winning points
      */
     public void playGame() {
+
         initializeGame();
 
         cardDeckPosition = cardDeck.size() - 1;
@@ -237,5 +238,4 @@ public class Game {
         }
         return false;
     }
-
 }
