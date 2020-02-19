@@ -69,6 +69,9 @@ public class StrategyATest {
         assertEquals(card, strategyA.playCard());
     }
 
-
-
+    @Test
+    public void testReset() {
+        strategyA.reset();
+        assertEquals(0, strategyA.playerCards.size());
+    }
 }
