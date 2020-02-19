@@ -22,4 +22,24 @@ public class StrategyBTest {
         strategyB.playerCards.add(new Card(Suit.DIAMONDS, Rank.TWO));
     }
 
+    @Test
+    public void testShouldDrawCardForSameCardFalse() {
+        assertEquals(false, strategyB.shouldDrawCard(new Card(Suit.HEARTS, Rank.NINE), null));
+    }
+
+    @Test
+    public void testShouldDrawCardForSameRankFalse() {
+        assertEquals(false, strategyB.shouldDrawCard(new Card(Suit.SPADES, Rank.NINE), Suit.HEARTS));
+    }
+
+    @Test
+    public void testShouldDrawCardForSameSuitFalse() {
+        assertEquals(false, strategyB.shouldDrawCard(new Card(Suit.CLUBS, Rank.FIVE), Suit.SPADES));
+    }
+
+    @Test
+    public void testShouldDrawCardTrue() {
+        assertEquals(true, strategyB.shouldDrawCard(new Card(Suit.DIAMONDS, Rank.FOUR), null));
+    }
+
 }
