@@ -14,13 +14,11 @@ import org.junit.Test;
 
 public class StrategyATest {
     StrategyA strategyA;
-    Game game;
     ArrayList<Card> playerCardsTest;
     //private final PrintStream originalOut = System.out;
     @Before
     public void setUp() {
         strategyA = new StrategyA();
-        game = new Game();
         //playerCardsTest = new ArrayList<>();
         strategyA.playerCards.add(new Card(Suit.HEARTS, Rank.EIGHT));
         strategyA.playerCards.add(new Card(Suit.DIAMONDS, Rank.JACK));
@@ -41,7 +39,7 @@ public class StrategyATest {
 
     @Test
     public void testShouldDrawCardTrue() {
-        strategyA.playerCards.remove(0);
+        strategyA.playerCards.remove(0); // removes card with rank of Eight
         assertEquals(true, strategyA.shouldDrawCard(new Card(Suit.CLUBS, Rank.FIVE), Suit.SPADES));
     }
 
@@ -51,9 +49,25 @@ public class StrategyATest {
     }
 
     @Test
-    public void test() {
-
+    public void testPlayerRecivesNewCard() {
+        Card card = new Card(Suit.SPADES, Rank.SIX);
+        strategyA.receiveCard(card);
+        assertEquals(card, strategyA.playerCards.get(5));
     }
+
+   /* @Test
+    public void testPlayCardEight() {
+        strategyA.shouldDrawCard(new Card(Suit.SPADES, Rank.ACE), null);
+        assertEquals(new Card(Suit.HEARTS, Rank.EIGHT), strategyA.playCard());
+    }
+
+    @Test
+    public void testPlaySameCard() {
+        strategyA.playerCards.remove(0);
+        Card card = new Card(Suit.SPADES, Rank.SIX);
+        strategyA.shouldDrawCard(card, null);
+        assertEquals(card, strategyA.playCard());
+    }*/
 
 
 
