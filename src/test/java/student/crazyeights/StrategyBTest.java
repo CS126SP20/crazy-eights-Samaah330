@@ -73,4 +73,9 @@ public class StrategyBTest {
         assertEquals(card, strategyB.playCard());
     }
 
+    @Test
+    public void testDeclareSuitClubs() {
+        assertEquals(Suit.CLUBS, strategyB.declareSuit());
+    }
+
 }
