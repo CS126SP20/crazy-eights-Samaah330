@@ -78,4 +78,10 @@ public class StrategyBTest {
         assertEquals(Suit.CLUBS, strategyB.declareSuit());
     }
 
+    @Test
+    public void testReset() {
+        strategyB.reset();
+        assertEquals(0, strategyB.playerCards.size());
+    }
+
 }
