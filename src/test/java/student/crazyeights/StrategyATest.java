@@ -36,13 +36,23 @@ public class StrategyATest {
 
     @Test
     public void testShouldDrawCardFalseBecauseEight() {
-        assertEquals(false, strategyA.shouldDrawCard(new Card(Suit.CLUBS, Rank.FIVE), null));
+        assertEquals(false, strategyA.shouldDrawCard(new Card(Suit.CLUBS, Rank.FIVE), Suit.HEARTS));
     }
 
     @Test
     public void testShouldDrawCardTrue() {
         strategyA.playerCards.remove(0);
-        assertEquals(true, strategyA.shouldDrawCard(new Card(Suit.CLUBS, Rank.FIVE), null));
+        assertEquals(true, strategyA.shouldDrawCard(new Card(Suit.CLUBS, Rank.FIVE), Suit.SPADES));
+    }
+
+    @Test
+    public void testInitialPlayerCardSize() {
+        assertEquals(5, strategyA.playerCards.size());
+    }
+
+    @Test
+    public void test() {
+
     }
 
 
